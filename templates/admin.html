@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Welcome to the Admin page</h1>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button id="plusBtn">Plus</button>
+        <button id="minusBtn">Minus</button>
+        <p id="number">0</p>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+        socket.on('connect', function() {
+            socket.emit('my event', {data: 'I\'m connected!'});
+        });
+    </script>
+    
+    <script>
+        const plusBtn = document.getElementById('plusBtn');
+        const minusBtn = document.getElementById('minusBtn');
+        const numberDisplay = document.getElementById('number');
+
+        plusBtn.addEventListener('click', () => {
+            let currentNumber = parseInt(numberDisplay.textContent, 10);
+            numberDisplay.textContent = currentNumber + 1;
+            socket.send("Hi!");
+            console.log("Im no lazy")
+        });
+
+        minusBtn.addEventListener('click', () => {
+            let currentNumber = parseInt(numberDisplay.textContent, 10);
+            numberDisplay.textContent = currentNumber - 1;
+            socket.emit("Hi!");
+        });
+    </script>
+</body>
+</html>
+
